@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    // Version.
+    androidPluginVersion = '1.3.0'
+    retroLambdaVersion = '3.1.0'
+    androidAptVersion = '1.4'
+
+    androidSupportVersion = '22.2.1'
+    daggerVersion = '2.0'
+    butterKnifeVerion = '7.0.1'
+    timberVersion = '2.2.+'
+    picassoVersion = '2.5.2'
+    gsonVersion = '2.3.1'
+    retrofitVersion = '1.9.0'
+    urlconnectionVersion = '2.0.0'
+    okhttpVersion = '2.0.0'
+    rxAndroidVersion = '0.24.0'
+    rxJavaVersion = '1.0.0'
+    espressoCoreVersion = '2.0'
+    testingSupportLibVersion = '0.1'
+    ottoVersion = '1.3.6'
+    generatedAnnotationVersion = '10.0-b28'
+    Realm_version = '0.82.1'
+    Mint_version = '4.2.1'
+    // Configuration.
+    config = [
+            minSdkVersion    : 14,
+            compileSdkVersion: 22,
+            buildToolsVersion: '22.0.1',
+            targetSdkVersion : 22
+    ]
+
+    plugin = [
+            androidPlugin: "com.android.tools.build:gradle:${androidPluginVersion}",
+            retroLambda  : "me.tatarka:gradle-retrolambda:${retroLambdaVersion}",
+            androidApt   : "com.neenbedankt.gradle.plugins:android-apt:${androidAptVersion}"
+    ]
+
+    dependency = [
+            // Android Support Libraries
+            supportDesign          : "com.android.support:design:${androidSupportVersion}",
+            supportv4              : "com.android.support:support-v4:${androidSupportVersion}",
+            cardviewv7             : "com.android.support:cardview-v7:${androidSupportVersion}",
+            appcompatv7            : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            gridlayoutv7           : "com.android.support:gridlayout-v7:${androidSupportVersion}",
+            recyclerviewv7         : "com.android.support:recyclerview-v7:${androidSupportVersion}",
+
+            // Dependencies Injection.
+            dagger                 : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler         : "com.google.dagger:dagger-compiler:${daggerVersion}",
+
+            // View injection.
+            butterknife            : "com.jakewharton:butterknife:${butterKnifeVerion}",
+
+            // Logging
+            timber                 : "com.jakewharton.timber:timber:${timberVersion}",
+
+            // Image Loader
+            picasso                : "com.squareup.picasso:picasso:${picassoVersion}",
+
+            // REST client
+            gson                   : "com.google.code.gson:gson:${gsonVersion}",
+            retrofit               : "com.squareup.retrofit:retrofit:${retrofitVersion}",
+            urlconnection          : "com.squareup.okhttp:okhttp-urlconnection:${urlconnectionVersion}",
+            okhttp                 : "com.squareup.okhttp:okhttp:${okhttpVersion}",
+            rxAndroid              : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            rxJava                 : "io.reactivex:rxjava:${rxJavaVersion}",
+            otto                   : "com.squareup:otto:${ottoVersion}",
+            generatedAnnotation: "org.glassfish:javax.annotation:${generatedAnnotationVersion}",
+
+            // Database
+            realm              : "io.realm:realm-android:${Realm_version}",
+
+            mint               : "com.splunk.mint:mint:${Mint_version}"
+    ]
+}
