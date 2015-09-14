@@ -117,6 +117,8 @@ dependencies {
     compile dependency.mint
 
     compile dependency.retrofit
+    compile dependency.retrofitConverterGson
+    compile dependency.retrofitAdapterRxjava
     compile dependency.gson
     compile dependency.rxAndroid
 
