@@ -7,6 +7,6 @@ import java.util.ArrayList;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
-public interface PlayerView {
+public interface YKMAViewPlayer {
     void render(ArrayList<YKMADBSong> songList);
 }
