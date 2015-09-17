@@ -17,10 +17,20 @@ repositories {
         url "https://mint.splunk.com/gradle/"
     }
 }
+Integer VERSION_CODE = 2015091713
+String VERSION_NAME = "1.0"
+String APK_NAME = "AndroidCore"
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
-
+//    app-<flavor>-<buildtype>.apk; for example, app-full-release.apk and app-demo-debug.apk.
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    output.outputFile.name.replace(output.outputFile.name, VERSION_CODE + "-" + VERSION_NAME + "-" + APK_NAME + ".apk"))
+        }
+    }
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -36,19 +46,18 @@ android {
             storePassword '811728'
         }
     }
-
     defaultConfig {
         applicationId "com.cvnhan.androidcr"
         minSdkVersion rootProject.ext.config.minSdkVersion
         targetSdkVersion rootProject.ext.config.compileSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix '.dev'
-            versionNameSuffix '-dev'
+//            applicationIdSuffix '.dev'
+//            versionNameSuffix '-dev'
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -91,6 +100,9 @@ dependencies {
     compile project(':core')
 
     def dependency = rootProject.ext.dependency
+    compile dependency.dagger
+    apt dependency.daggerCompiler
+    provided dependency.generatedAnnotation;
     compile dependency.picasso
     compile dependency.mint
 
