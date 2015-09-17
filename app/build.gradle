@@ -91,36 +91,7 @@ dependencies {
     compile project(':core')
 
     def dependency = rootProject.ext.dependency
-    compile dependency.supportDesign
-    compile dependency.appcompatv7
-    compile dependency.recyclerviewv7
-    compile dependency.cardviewv7
-
-    // Inject dependencies
-    compile dependency.dagger
-    apt dependency.daggerCompiler
-    provided dependency.generatedAnnotation;
-
-    // View Inject dependencies
-    compile dependency.butterknife
-
-    // RxAndroid
-    compile dependency.rxAndroid
-
-    // ImageLoader
     compile dependency.picasso
-
-    compile dependency.otto
-
-    compile dependency.realm
-
     compile dependency.mint
-
-    compile dependency.retrofit
-    compile dependency.retrofitConverterGson
-    compile dependency.retrofitAdapterRxjava
-    compile dependency.gson
-    compile dependency.rxAndroid
-
 
 }
