@@ -98,13 +98,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':core')
-
-    def dependency = rootProject.ext.dependency
-    compile dependency.dagger
-    apt dependency.daggerCompiler
-    provided dependency.generatedAnnotation;
-    compile dependency.picasso
-    compile dependency.mint
-    compile dependency.realm
-
 }
