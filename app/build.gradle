@@ -105,5 +105,6 @@ dependencies {
     provided dependency.generatedAnnotation;
     compile dependency.picasso
     compile dependency.mint
+    compile dependency.realm
 
 }
