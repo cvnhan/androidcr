@@ -97,12 +97,27 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':core')
+    testCompile 'junit:junit:4.12'
+
+//    compile project(':core')
 
     def dependency = rootProject.ext.dependency
+    compile dependency.supportDesign
+    compile dependency.appcompatv7
+    compile dependency.recyclerviewv7
     compile dependency.dagger
     apt dependency.daggerCompiler
     provided dependency.generatedAnnotation;
+    compile dependency.butterknife
+    compile dependency.otto
+    compile dependency.realm
+    //retrofit already had okhttp
+    compile dependency.retrofit
+    compile dependency.retrofitConverterGson
+    compile dependency.retrofitAdapterRxjava
+    compile dependency.gson
+    compile dependency.rxAndroid
+    compile dependency.rxJava
     compile dependency.picasso
     compile dependency.mint
 
