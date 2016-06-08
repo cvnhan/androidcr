@@ -1,6 +1,6 @@
 package com.cvnhan.androidcr.dagger.module;
 /**
- * Created by NhanCao on 13-Sep-15.
+ * Created by nhancao on 08-June-16.
  */
 
 import android.app.Application;
@@ -11,9 +11,6 @@ import com.cvnhan.androidcr.mvp.model.MRadio;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -27,12 +24,19 @@ import javax.net.ssl.X509TrustManager;
 import dagger.Module;
 import dagger.Provides;
 import io.realm.RealmObject;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ModuleModel {
+    public static final Boolean VERIFY_NEEDED = false;
     public static final String BASE_URL = "http://vannhan.comuv.com";
     private static final String TRUSTED_HOST = "test3.sunnypoint.jp";
 
@@ -63,22 +67,48 @@ public class ModuleModel {
             // Create an ssl socket factory with our all-trusting manager
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
-            OkHttpClient okHttpClient = new OkHttpClient();
-            okHttpClient.setSslSocketFactory(sslSocketFactory);
-            okHttpClient.setHostnameVerifier((hostname, session) -> hostname.contains(TRUSTED_HOST));
-            okHttpClient.interceptors().add(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Response response = chain.proceed(chain.request());
-                    Log.e("response", response.toString());
-                    // Do anything with response here
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(
+                            new Interceptor() {
+                                @Override
+                                public Response intercept(Interceptor.Chain chain) throws IOException {
+                                    Request original = chain.request();
+                                    // Request customization: add request headers
+                                    Request.Builder requestBuilder = original.newBuilder()
+//                                            .header("Accept", "application/json")
+//                                            .header("Authorization", token)
+                                            .method(original.method(), original.body());
+                                    Request request = requestBuilder.build();
+                                    Buffer buffer = new Buffer();
+                                    if (request.body() != null)
+                                        request.body().writeTo(buffer);
+                                    if (buffer.size() == 0) buffer.writeUtf8("nothing in body");
+                                    Log.e("Retrofit", String.format("Method: %s - Request to %s with->\nBODY: %s", request.method(), request.url(), buffer.readUtf8()));
+                                    long t1 = System.nanoTime();
+                                    Response response = chain.proceed(request);
+                                    long t2 = System.nanoTime();
+                                    String msg = response.body().string();
+                                    Log.e("Retrofit", String.format("Response from %s in %.1fms%n",
+                                            response.request().url(), (t2 - t1) / 1e6d));
+                                    Log.e("Retrofit", "response: " + msg);
+                                    return response
+                                            .newBuilder()
+                                            .body(ResponseBody.create(response.body().contentType(), msg))
+                                            .build();
+                                }
+                            })
+                    .build();
 
-                    return response;
-                }
-            });
+            okHttpClient.newBuilder().sslSocketFactory(sslSocketFactory);
+
+            if (VERIFY_NEEDED) {
+                okHttpClient.newBuilder().hostnameVerifier((hostname, session) -> hostname.contains(TRUSTED_HOST));
+            }
             return okHttpClient;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+            return new OkHttpClient();
         }
     }
 

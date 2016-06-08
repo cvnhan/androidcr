@@ -2,7 +2,7 @@ package com.cvnhan.androidcr.mvp.model;
 
 import com.cvnhan.androidcr.mvp.model.remote.MRRadioRes;
 
-import retrofit.http.GET;
+import retrofit2.http.GET;
 import rx.Observable;
 
 /**

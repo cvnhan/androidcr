@@ -99,18 +99,10 @@
 }
 
 #Proguard for Retrofit
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
-
--dontwarn rx.**
--dontwarn retrofit.**
--dontwarn okio.**
--keep class retrofit.** { *; }
--keepclasseswithmembers class * {
-    @retrofit.http.* <methods>;
-}
-
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
 
 #Proguard for support-v7-appcompat
 -keep public class android.support.v7.widget.** { *; }

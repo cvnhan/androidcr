@@ -16,7 +16,7 @@ public class ModulePresenter {
 
     @Provides
     @Singleton
-    public PRadio provideHIPresenterBIDReport(MRadio model) {
+    public PRadio providePRadio(MRadio model) {
         return new PRadio(model);
     }
 
