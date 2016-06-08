@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class FragmentBase extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private Unbinder unbinder;
 

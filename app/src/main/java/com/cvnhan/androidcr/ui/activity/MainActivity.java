@@ -19,7 +19,7 @@ import javax.inject.Inject;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
-public class MainActivity extends ActivityBase implements VRadio {
+public class MainActivity extends BaseActivity implements VRadio {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     @Inject
