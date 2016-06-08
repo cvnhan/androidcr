@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.dagger.module;
+package com.cvnhan.androidcr.dagger.module;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
@@ -6,7 +6,7 @@ package com.cvnhan.androidcr.core.dagger.module;
 import android.app.Activity;
 import android.view.LayoutInflater;
 
-import com.cvnhan.androidcr.core.dagger.IPerActivity;
+import com.cvnhan.androidcr.dagger.IPerActivity;
 
 import dagger.Module;
 import dagger.Provides;

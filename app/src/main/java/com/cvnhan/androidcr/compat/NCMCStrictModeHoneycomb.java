@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.compat;
+package com.cvnhan.androidcr.compat;
 /**
  * Created by NhanCao on 13-Sep-15.
  */

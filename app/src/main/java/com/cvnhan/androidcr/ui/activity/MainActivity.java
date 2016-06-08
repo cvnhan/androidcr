@@ -6,8 +6,7 @@ import android.location.LocationManager;
 
 import com.cvnhan.androidcr.MyApplication;
 import com.cvnhan.androidcr.R;
-import com.cvnhan.androidcr.core.dagger.module.ModuleActivity;
-import com.cvnhan.androidcr.core.ui.ActivityBase;
+import com.cvnhan.androidcr.dagger.module.ModuleActivity;
 import com.cvnhan.androidcr.dagger.ComponentUi;
 import com.cvnhan.androidcr.dagger.DaggerComponentUi;
 import com.cvnhan.androidcr.mvp.model.local.MLRadio;

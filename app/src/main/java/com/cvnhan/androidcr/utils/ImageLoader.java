@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.utils;
+package com.cvnhan.androidcr.utils;
 
 import android.widget.ImageView;
 

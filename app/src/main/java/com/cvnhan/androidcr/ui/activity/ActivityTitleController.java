@@ -2,7 +2,7 @@ package com.cvnhan.androidcr.ui.activity;
 
 import android.app.Activity;
 
-import com.cvnhan.androidcr.core.dagger.IPerActivity;
+import com.cvnhan.androidcr.dagger.IPerActivity;
 
 import javax.inject.Inject;
 

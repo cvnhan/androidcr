@@ -10,9 +10,9 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import rx.Observable;
 
-import static com.cvnhan.androidcr.core.utils.RxHelper.onCompleted;
-import static com.cvnhan.androidcr.core.utils.RxHelper.onError;
-import static com.cvnhan.androidcr.core.utils.RxHelper.onNext;
+import static com.cvnhan.androidcr.utils.RxHelper.onCompleted;
+import static com.cvnhan.androidcr.utils.RxHelper.onError;
+import static com.cvnhan.androidcr.utils.RxHelper.onNext;
 
 /**
  * Created by NhanCao on 13-Sep-15.

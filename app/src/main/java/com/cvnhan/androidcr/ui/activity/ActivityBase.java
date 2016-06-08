@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.ui;
+package com.cvnhan.androidcr.ui.activity;
 
 /**
  * Created by NhanCao on 13-Sep-15.

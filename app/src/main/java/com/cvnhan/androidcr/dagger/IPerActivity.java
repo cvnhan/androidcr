@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.dagger;
+package com.cvnhan.androidcr.dagger;
 /**
  * Created by NhanCao on 13-Sep-15.
  */

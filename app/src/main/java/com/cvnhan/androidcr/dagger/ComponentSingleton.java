@@ -7,8 +7,8 @@ import android.app.Application;
 import android.location.LocationManager;
 
 import com.cvnhan.androidcr.MyApplication;
-import com.cvnhan.androidcr.core.dagger.module.ModuleApplication;
-import com.cvnhan.androidcr.core.utils.ImageLoader;
+import com.cvnhan.androidcr.dagger.module.ModuleApplication;
+import com.cvnhan.androidcr.utils.ImageLoader;
 import com.cvnhan.androidcr.dagger.module.ModuleModel;
 import com.cvnhan.androidcr.dagger.module.ModulePresenter;
 import com.cvnhan.androidcr.dagger.module.ModuleUtils;

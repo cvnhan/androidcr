@@ -3,8 +3,8 @@ package com.cvnhan.androidcr;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.cvnhan.androidcr.core.compat.NCMCPlatformImpSpecificFactory;
-import com.cvnhan.androidcr.core.dagger.module.ModuleApplication;
+import com.cvnhan.androidcr.compat.NCMCPlatformImpSpecificFactory;
+import com.cvnhan.androidcr.dagger.module.ModuleApplication;
 import com.cvnhan.androidcr.dagger.ComponentSingleton;
 import com.cvnhan.androidcr.dagger.DaggerComponentSingleton;
 import com.cvnhan.androidcr.mvp.model.local.MLMigration;

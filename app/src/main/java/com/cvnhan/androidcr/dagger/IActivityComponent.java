@@ -1,12 +1,11 @@
-package com.cvnhan.androidcr.core.dagger;
+package com.cvnhan.androidcr.dagger;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
 
 import android.app.Activity;
 
-import com.cvnhan.androidcr.core.dagger.module.ModuleActivity;
-import com.cvnhan.androidcr.dagger.ComponentSingleton;
+import com.cvnhan.androidcr.dagger.module.ModuleActivity;
 
 import dagger.Component;
 

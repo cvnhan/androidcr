@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.utils;
+package com.cvnhan.androidcr.utils;
 
 import rx.Observable;
 import rx.Subscriber;

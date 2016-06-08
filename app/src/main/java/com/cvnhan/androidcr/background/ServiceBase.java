@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.background;
+package com.cvnhan.androidcr.background;
 
 /**
  * Created by NhanCao on 13-Sep-15.
@@ -13,9 +13,9 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 
-public abstract class BaseService extends Service {
-    public static final String ACTIVITY_RECEIVE = "com.cvnhan.androidcr.core.utils.Activity.RECEIVE";
-    public static final String SERVICE_RECEIVE = "com.cvnhan.androidcr.core.utils.Service.RECEIVE";
+public abstract class ServiceBase extends Service {
+    public static final String ACTIVITY_RECEIVE = "com.cvnhan.androidcr.utils.Activity.RECEIVE";
+    public static final String SERVICE_RECEIVE = "com.cvnhan.androidcr.utils.Service.RECEIVE";
     ServiceReceiver myReceiver;
 
     @Override
@@ -28,7 +28,7 @@ public abstract class BaseService extends Service {
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         myReceiver = new ServiceReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(BaseService.SERVICE_RECEIVE);
+        filter.addAction(ServiceBase.SERVICE_RECEIVE);
         registerReceiver(myReceiver, filter);
         onStartCommand(intent);
         return START_STICKY;
@@ -48,7 +48,7 @@ public abstract class BaseService extends Service {
     class ServiceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            BaseService.this.onReceive(context, intent);
+            ServiceBase.this.onReceive(context, intent);
         }
     }
 }

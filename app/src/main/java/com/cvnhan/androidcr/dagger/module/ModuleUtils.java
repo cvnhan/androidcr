@@ -5,7 +5,7 @@ package com.cvnhan.androidcr.dagger.module;
 
 import android.app.Application;
 
-import com.cvnhan.androidcr.core.utils.ImageLoader;
+import com.cvnhan.androidcr.utils.ImageLoader;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 

@@ -1,4 +1,4 @@
-package com.cvnhan.androidcr.core.utils;
+package com.cvnhan.androidcr.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.WindowManager;
 
-import com.cvnhan.androidcr.core.background.BaseService;
+import com.cvnhan.androidcr.background.ServiceBase;
 
 import java.text.Normalizer;
 import java.util.UUID;
@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
-public class CUtils {
+public class Utils {
 
     /**
      * @param duration : 302000
@@ -81,15 +81,15 @@ public class CUtils {
 
     public static void sendBroadcastIntentBaseActivityReceiver(Context context, String message) {
         Intent intent = new Intent();
-        intent.setAction(BaseService.ACTIVITY_RECEIVE);
-        intent.putExtra(BaseService.ACTIVITY_RECEIVE, message);
+        intent.setAction(ServiceBase.ACTIVITY_RECEIVE);
+        intent.putExtra(ServiceBase.ACTIVITY_RECEIVE, message);
         context.sendBroadcast(intent);
     }
 
     public static void sendBroadcastIntentBaseServiceReceiver(Context context, String message) {
         Intent intent = new Intent();
-        intent.setAction(BaseService.SERVICE_RECEIVE);
-        intent.putExtra(BaseService.SERVICE_RECEIVE, message);
+        intent.setAction(ServiceBase.SERVICE_RECEIVE);
+        intent.putExtra(ServiceBase.SERVICE_RECEIVE, message);
         context.sendBroadcast(intent);
     }
 
