@@ -30,7 +30,7 @@ public class MainActivity extends ActivityBase implements VRadio {
     protected void onCreated(Bundle savedInstanceState) {
         nav = FragmentNav.create(this, R.id.content);
         if (savedInstanceState == null) {
-            nav.showScreen(new HomeFragment(), true);
+            nav.showScreen(new HomeFragment(), false);
         }
         flow.onPStart(this);
     }

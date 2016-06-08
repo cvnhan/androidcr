@@ -6,19 +6,36 @@ package com.cvnhan.androidcr.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FragmentBase extends Fragment {
+public abstract class FragmentBase extends Fragment {
 
     private Unbinder unbinder;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         injectDependencies();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final int layoutId = getContentViewId();
+        if (layoutId == 0) {
+            final View contentView = getContentView();
+            if (contentView != null) {
+                return contentView;
+            }
+        } else {
+            return inflater.inflate(getContentViewId(), container, false);
+        }
+        return null;
     }
 
     @Override
@@ -28,15 +45,20 @@ public class FragmentBase extends Fragment {
         onInjected();
     }
 
-    protected void onInjected() {
+    protected abstract void injectDependencies();
 
-    }
+    protected abstract int getContentViewId();
 
-    protected void injectDependencies() {
+    protected View getContentView() {
+        return null;
     }
 
     protected void injectViews(View view) {
         unbinder = ButterKnife.bind(this, view);
+    }
+
+    protected void onInjected() {
+
     }
 
     @Override
@@ -45,8 +67,4 @@ public class FragmentBase extends Fragment {
         unbinder.unbind();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }
