@@ -11,19 +11,14 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
-repositories {
-    maven {
-        url "https://mint.splunk.com/gradle/"
-    }
-}
 Integer VERSION_CODE = 2015091713
 String VERSION_NAME = "1.0"
 String APK_NAME = "AndroidCore"
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
-//    app-<flavor>-<buildtype>.apk; for example, app-full-release.apk and app-demo-debug.apk.
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
@@ -52,12 +47,11 @@ android {
         targetSdkVersion rootProject.ext.config.compileSdkVersion
         versionCode VERSION_CODE
         versionName VERSION_NAME
+        multiDexEnabled = true
     }
 
     buildTypes {
         debug {
-//            applicationIdSuffix '.dev'
-//            versionNameSuffix '-dev'
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -79,7 +73,6 @@ android {
             buildConfigField 'String', 'HOST', '""'
         }
     }
-    // Configure for RetroLambda
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -90,7 +83,7 @@ android {
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
+//        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
 }
@@ -98,8 +91,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-
-//    compile project(':core')
 
     def dependency = rootProject.ext.dependency
     compile dependency.supportDesign
@@ -109,9 +100,8 @@ dependencies {
     apt dependency.daggerCompiler
     provided dependency.generatedAnnotation;
     compile dependency.butterknife
+    apt dependency.butterknifeCompiler
     compile dependency.otto
-    compile dependency.realm
-    //retrofit already had okhttp
     compile dependency.retrofit
     compile dependency.retrofitConverterGson
     compile dependency.retrofitAdapterRxjava
@@ -119,6 +109,7 @@ dependencies {
     compile dependency.rxAndroid
     compile dependency.rxJava
     compile dependency.picasso
-    compile dependency.mint
+    compile dependency.timber
 
+    compile 'com.android.support:support-v4:23.4.0'
 }

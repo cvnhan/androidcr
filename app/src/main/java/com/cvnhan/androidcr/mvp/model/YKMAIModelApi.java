@@ -1,6 +1,6 @@
 package com.cvnhan.androidcr.mvp.model;
 
-import com.cvnhan.androidcr.mvp.model.remote.YKMARMRadioRes;
+import com.cvnhan.androidcr.mvp.model.remote.MRRadioRes;
 
 import retrofit.http.GET;
 import rx.Observable;
@@ -10,5 +10,5 @@ import rx.Observable;
  */
 public interface YKMAIModelApi {
     @GET("/pol/controller/get_list.php")
-    Observable<YKMARMRadioRes> getAllRadio();
+    Observable<MRRadioRes> getAllRadio();
 }
