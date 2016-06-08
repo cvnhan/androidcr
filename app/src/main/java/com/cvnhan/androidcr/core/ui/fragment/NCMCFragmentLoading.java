@@ -5,7 +5,8 @@ package com.cvnhan.androidcr.core.ui.fragment;
 
 import android.view.View;
 
-import com.cvnhan.core.ui.view.NCMCViewSwitcher;
+import com.cvnhan.androidcr.core.ui.view.NCMCViewSwitcher;
+
 
 public class NCMCFragmentLoading extends NCMCFragmentBase {
 

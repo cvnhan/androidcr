@@ -2,12 +2,12 @@ package com.cvnhan.androidcr;
 
 import android.content.Context;
 
+import com.cvnhan.androidcr.core.NCMCAppBase;
+import com.cvnhan.androidcr.core.dagger.module.NCMCModuleApplication;
 import com.cvnhan.androidcr.dagger.DaggerYKMAIComponentSingleton;
 import com.cvnhan.androidcr.dagger.YKMAIComponentSingleton;
 import com.cvnhan.androidcr.dagger.module.YKMAModuleUtils;
 import com.cvnhan.androidcr.mvp.model.local.YKMADBMigration;
-import com.cvnhan.core.NCMCAppBase;
-import com.cvnhan.core.dagger.module.NCMCModuleApplication;
 
 import java.io.File;
 
@@ -38,7 +38,6 @@ public class NCMCCoreApp extends NCMCAppBase {
                 .schemaVersion(YKMADBMigration.DBVERSION)
                 .migration(new YKMADBMigration())
                 .build();
-//        Mint.initAndStartSession(this, "cde0ba64");
     }
 
     public YKMAIComponentSingleton component() {

@@ -12,7 +12,8 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.widget.Toast;
 
-import com.cvnhan.core.utils.NCMCUtils;
+import com.cvnhan.androidcr.core.utils.NCMCUtils;
+
 
 public abstract class NCMCBaseService extends Service {
 

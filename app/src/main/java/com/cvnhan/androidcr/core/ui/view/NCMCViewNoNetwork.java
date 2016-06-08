@@ -8,7 +8,8 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.cvnhan.core.R;
+import com.cvnhan.androidcr.R;
+
 
 public class NCMCViewNoNetwork extends RelativeLayout {
 

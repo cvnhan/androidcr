@@ -5,10 +5,10 @@ import android.content.Intent;
 
 import com.cvnhan.androidcr.NCMCCoreApp;
 import com.cvnhan.androidcr.R;
+import com.cvnhan.androidcr.core.dagger.module.NCMCModuleActivity;
+import com.cvnhan.androidcr.core.ui.activity.NCMCActivityBase;
 import com.cvnhan.androidcr.dagger.DaggerYKMAIComponentUi;
 import com.cvnhan.androidcr.dagger.YKMAIComponentUi;
-import com.cvnhan.core.dagger.module.NCMCModuleActivity;
-import com.cvnhan.core.ui.activity.NCMCActivityBase;
 
 /**
  * Created by NhanCao on 13-Sep-15.

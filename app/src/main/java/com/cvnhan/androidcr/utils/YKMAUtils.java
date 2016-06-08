@@ -7,7 +7,7 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.cvnhan.core.utils.NCMCUtils;
+import com.cvnhan.androidcr.core.utils.NCMCUtils;
 
 import java.util.UUID;
 

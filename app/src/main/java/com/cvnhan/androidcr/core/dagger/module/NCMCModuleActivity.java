@@ -6,7 +6,7 @@ package com.cvnhan.androidcr.core.dagger.module;
 import android.app.Activity;
 import android.view.LayoutInflater;
 
-import com.cvnhan.core.dagger.NCMCIPerActivity;
+import com.cvnhan.androidcr.core.dagger.NCMCIPerActivity;
 
 import dagger.Module;
 import dagger.Provides;

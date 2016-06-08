@@ -8,8 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 
-import com.cvnhan.core.ui.view.NCMCViewNoNetwork;
-import com.cvnhan.core.ui.view.NCMCViewSwitcher;
+import com.cvnhan.androidcr.core.ui.view.NCMCViewNoNetwork;
+import com.cvnhan.androidcr.core.ui.view.NCMCViewSwitcher;
+
 
 public abstract class NCMCFragmentNetwork extends NCMCFragmentLoading {
 

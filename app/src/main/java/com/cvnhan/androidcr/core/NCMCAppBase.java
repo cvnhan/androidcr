@@ -2,7 +2,8 @@ package com.cvnhan.androidcr.core;
 
 import android.app.Application;
 
-import com.cvnhan.core.compat.NCMCPlatformImpSpecificFactory;
+import com.cvnhan.androidcr.core.compat.NCMCPlatformImpSpecificFactory;
+
 
 /**
  * Created by NhanCao on 13-Sep-15.

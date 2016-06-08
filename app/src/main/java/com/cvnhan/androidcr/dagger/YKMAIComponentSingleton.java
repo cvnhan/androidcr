@@ -5,11 +5,11 @@ package com.cvnhan.androidcr.dagger;
 
 import android.app.Application;
 
+import com.cvnhan.androidcr.core.dagger.module.NCMCModuleApplication;
 import com.cvnhan.androidcr.dagger.module.YKMAModuleModel;
 import com.cvnhan.androidcr.dagger.module.YKMAModulePresenter;
 import com.cvnhan.androidcr.dagger.module.YKMAModuleUtils;
 import com.cvnhan.androidcr.utils.YKMAIUtilImageLoader;
-import com.cvnhan.core.dagger.module.NCMCModuleApplication;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;

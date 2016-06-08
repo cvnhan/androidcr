@@ -5,7 +5,7 @@ package com.cvnhan.androidcr.core.dagger;
 
 import android.app.Activity;
 
-import com.cvnhan.core.dagger.module.NCMCModuleActivity;
+import com.cvnhan.androidcr.core.dagger.module.NCMCModuleActivity;
 
 import dagger.Component;
 
