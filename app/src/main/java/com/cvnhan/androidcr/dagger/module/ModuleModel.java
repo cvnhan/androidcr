@@ -6,7 +6,7 @@ package com.cvnhan.androidcr.dagger.module;
 import android.app.Application;
 import android.util.Log;
 
-import com.cvnhan.androidcr.mvp.model.YKMAIModelApi;
+import com.cvnhan.androidcr.mvp.model.MApi;
 import com.cvnhan.androidcr.mvp.model.MRadio;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -35,6 +35,7 @@ import retrofit.RxJavaCallAdapterFactory;
 public class ModuleModel {
     public static final String BASE_URL = "http://vannhan.comuv.com";
     private static final String TRUSTED_HOST = "test3.sunnypoint.jp";
+
     private static OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
@@ -83,7 +84,7 @@ public class ModuleModel {
 
     @Provides
     @Singleton
-    public YKMAIModelApi provideApiModel() {
+    public MApi provideApiModel() {
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
@@ -102,7 +103,7 @@ public class ModuleModel {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(getUnsafeOkHttpClient())
                 .build();
-        return restAdapter.create(YKMAIModelApi.class);
+        return restAdapter.create(MApi.class);
     }
 
     @Provides

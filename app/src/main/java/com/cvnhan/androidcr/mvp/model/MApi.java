@@ -8,7 +8,7 @@ import rx.Observable;
 /**
  * Created by NhanCao on 13-Sep-15.
  */
-public interface YKMAIModelApi {
+public interface MApi {
     @GET("/pol/controller/get_list.php")
     Observable<MRRadioRes> getAllRadio();
 }

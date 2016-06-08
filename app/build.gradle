@@ -13,8 +13,8 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
 
-Integer VERSION_CODE = 2016060813
-String VERSION_NAME = "2.0"
+Integer VERSION_CODE = 2016060815
+String VERSION_NAME = "2.1"
 String APK_NAME = "AndroidMVP"
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion

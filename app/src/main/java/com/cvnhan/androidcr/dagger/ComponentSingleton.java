@@ -8,11 +8,11 @@ import android.location.LocationManager;
 
 import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.dagger.module.ModuleApplication;
-import com.cvnhan.androidcr.utils.ImageLoader;
 import com.cvnhan.androidcr.dagger.module.ModuleModel;
 import com.cvnhan.androidcr.dagger.module.ModulePresenter;
 import com.cvnhan.androidcr.dagger.module.ModuleUtils;
 import com.cvnhan.androidcr.mvp.presenter.PRadio;
+import com.cvnhan.androidcr.utils.ImageLoader;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -29,6 +29,7 @@ public interface ComponentSingleton {
     Application application();
 
     LocationManager locationManager();
+
     Bus bus();
 
     ImageLoader imageLoader();

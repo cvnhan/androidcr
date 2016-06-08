@@ -20,9 +20,9 @@ import static com.cvnhan.androidcr.utils.RxHelper.onNext;
 public class MRadio {
     private final String TAG = MRadio.class.getSimpleName();
     private final android.app.Application application;
-    private final YKMAIModelApi apiModel;
+    private final MApi apiModel;
 
-    public MRadio(android.app.Application application, YKMAIModelApi apiModel) {
+    public MRadio(android.app.Application application, MApi apiModel) {
         this.application = application;
         this.apiModel = apiModel;
     }
