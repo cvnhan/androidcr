@@ -11,19 +11,14 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
-repositories {
-    maven {
-        url "https://mint.splunk.com/gradle/"
-    }
-}
-Integer VERSION_CODE = 2015091713
-String VERSION_NAME = "1.0"
-String APK_NAME = "AndroidCore"
+Integer VERSION_CODE = 2016060813
+String VERSION_NAME = "2.0"
+String APK_NAME = "AndroidMVP"
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
-//    app-<flavor>-<buildtype>.apk; for example, app-full-release.apk and app-demo-debug.apk.
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
@@ -52,15 +47,13 @@ android {
         targetSdkVersion rootProject.ext.config.compileSdkVersion
         versionCode VERSION_CODE
         versionName VERSION_NAME
+        multiDexEnabled = true
+        buildConfigField "boolean", "SERVICE_BASE", "false"
     }
 
     buildTypes {
         debug {
-//            applicationIdSuffix '.dev'
-//            versionNameSuffix '-dev'
             debuggable true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
         release {
@@ -79,7 +72,6 @@ android {
             buildConfigField 'String', 'HOST', '""'
         }
     }
-    // Configure for RetroLambda
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -90,12 +82,30 @@ android {
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':core')
+    testCompile 'junit:junit:4.12'
+
+    def dependency = rootProject.ext.dependency
+    compile dependency.supportDesign
+    compile dependency.supportv4
+    compile dependency.appcompatv7
+    compile dependency.recyclerviewv7
+    compile dependency.dagger
+    apt dependency.daggerCompiler
+    provided dependency.generatedAnnotation;
+    compile dependency.butterknife
+    apt dependency.butterknifeCompiler
+    compile dependency.otto
+    compile dependency.retrofit
+    compile dependency.retrofitConverterGson
+    compile dependency.retrofitAdapterRxjava
+    compile dependency.gson
+    compile dependency.rxAndroid
+    compile dependency.rxJava
+    compile dependency.picasso
 }
