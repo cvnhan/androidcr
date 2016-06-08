@@ -1,6 +1,6 @@
 package com.cvnhan.androidcr.mvp.model;
 
-import com.cvnhan.androidcr.MyApplication;
+import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.mvp.model.local.MLRadio;
 import com.cvnhan.androidcr.mvp.model.remote.MRRadio;
 
@@ -37,7 +37,7 @@ public class MRadio {
             if (rmRadios != null && rmRadios.size() > 0) {
                 Realm realm = null;
                 try {
-                    realm = Realm.getInstance(((MyApplication) application).getConfig0());
+                    realm = Realm.getInstance(((MyApp) application).getConfig0());
                     realm.beginTransaction();
                     radioList = new ArrayList<>();
                     for (MRRadio rmRadio : rmRadios) {
@@ -62,7 +62,7 @@ public class MRadio {
         return Observable.defer(() -> Observable.create(subscriber -> {
             Realm realm = null;
             try {
-                realm = Realm.getInstance(((MyApplication) application).getConfig0());
+                realm = Realm.getInstance(((MyApp) application).getConfig0());
                 final RealmResults<MLRadio> dbRadios = realm.where(MLRadio.class).findAll();
                 ArrayList<MLRadio> radioArrayList = new ArrayList<>();
                 for (MLRadio dbRadio : dbRadios) {

@@ -6,7 +6,7 @@ package com.cvnhan.androidcr.dagger;
 import android.app.Application;
 import android.location.LocationManager;
 
-import com.cvnhan.androidcr.MyApplication;
+import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.dagger.module.ModuleApplication;
 import com.cvnhan.androidcr.utils.ImageLoader;
 import com.cvnhan.androidcr.dagger.module.ModuleModel;
@@ -23,7 +23,7 @@ import dagger.Component;
 @Component(modules = {ModuleUtils.class, ModuleApplication.class, ModuleModel.class, ModulePresenter.class})
 public interface ComponentSingleton {
     // Field injections of any dependencies of the DemoApplication
-    void inject(MyApplication application);
+    void inject(MyApp application);
 
     // Exported for child-components.
     Application application();

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.R;
 import com.cvnhan.androidcr.ui.activity.ActivityTitleController;
 import com.cvnhan.androidcr.ui.activity.MainActivity;
@@ -16,21 +15,20 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class HomeFragment extends FragmentBase {
-    private static final String TAG = HomeFragment.class.getSimpleName();
+public class SecondFragment extends FragmentBase {
+    private static final String TAG = SecondFragment.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     @Inject
     ActivityTitleController titleController;
-
     private String mParam1;
     private String mParam2;
 
-    public HomeFragment() {
+    public SecondFragment() {
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static SecondFragment newInstance(String param1, String param2) {
+        SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,7 +60,7 @@ public class HomeFragment extends FragmentBase {
     @Override
     public void onResume() {
         super.onResume();
-        titleController.setTitle("Home Fragment");
+        titleController.setTitle("Second Fragment");
     }
 
     @Override
@@ -73,7 +71,6 @@ public class HomeFragment extends FragmentBase {
     @OnClick(R.id.btnHomeFragment)
     public void btnHomeFragmentOnClick() {
         Log.e(TAG, "btnHomeFragmentOnClick: ");
-        ((MyApp) getActivity().getApplication()).getApplicationBus().post("test");
     }
 
 }

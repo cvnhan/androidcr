@@ -8,28 +8,49 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.cvnhan.androidcr.core.background.BaseService;
-import com.cvnhan.androidcr.ui.fragment.HomeFragment;
+import com.cvnhan.androidcr.BuildConfig;
+import com.cvnhan.androidcr.MyApp;
+import com.cvnhan.androidcr.background.ServiceBase;
+import com.cvnhan.androidcr.dagger.ComponentUi;
+import com.cvnhan.androidcr.dagger.DaggerComponentUi;
+import com.cvnhan.androidcr.dagger.module.ModuleActivity;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
 
 public abstract class ActivityBase extends AppCompatActivity {
-
+    @Inject
+    LocationManager locationManager;
     NCMCActivityReceiverBase myReceiver;
+
+    private ComponentUi uiComponent;
+
+    public ComponentUi component() {
+        if (uiComponent == null) {
+            uiComponent = DaggerComponentUi.builder()
+                    .componentSingleton(((MyApp) getApplication()).component())
+                    .moduleActivity(new ModuleActivity(this))
+                    .build();
+        }
+        return uiComponent;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        myReceiver = new NCMCActivityReceiverBase();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BaseService.ACTIVITY_RECEIVE);
-        registerReceiver(myReceiver, filter);
+        if (BuildConfig.SERVICE_BASE) {
+            myReceiver = new NCMCActivityReceiverBase();
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ServiceBase.ACTIVITY_RECEIVE);
+            registerReceiver(myReceiver, filter);
+        }
 
         injectDependencies();
         final int layoutId = getContentViewId();
@@ -37,59 +58,41 @@ public abstract class ActivityBase extends AppCompatActivity {
             final View contentView = getContentView();
             if (contentView != null) {
                 setContentView(contentView);
-                injectViews();
             }
         } else {
             setContentView(layoutId);
-            injectViews();
         }
-        setupViews();
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, new HomeFragment())
-                    .commit();
-        }
+        ButterKnife.bind(this);
+        ((MyApp) getApplication()).getApplicationBus().register(this);
+
+        onCreated(savedInstanceState);
     }
 
-    protected abstract void setupViews();
+    protected abstract void onCreated(Bundle savedInstanceState);
 
-    /**
-     * Create content view, this is fallback method to create content view if getContentViewId() method return 0.
-     *
-     * @return Content View.
-     */
+    protected abstract int getContentViewId();
+
     protected View getContentView() {
         return null;
     }
 
-    /**
-     * Return layout's id to be set on setContentView(int layoutId) method.
-     *
-     * @return layout's id or 0 to use getContentView().
-     */
-    protected abstract int getContentViewId();
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(myReceiver);
-    }
+    protected abstract void injectDependencies();
 
     @Override
     protected void onResume() {
         super.onResume();
     }
 
-    protected abstract void injectDependencies();
-
-    /**
-     * Use to inject views which declared by using Annotation @InjectView.
-     */
-    protected void injectViews() {
-        ButterKnife.bind(this);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myReceiver != null) {
+            unregisterReceiver(myReceiver);
+        }
     }
 
-    protected abstract void onReceive(Context context, Intent intent);
+    protected void onReceive(Context context, Intent intent) {
+    }
 
     class NCMCActivityReceiverBase extends BroadcastReceiver {
         @Override

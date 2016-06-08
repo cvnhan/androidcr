@@ -3,6 +3,7 @@ package com.cvnhan.androidcr.ui.fragment;
  * Created by NhanCao on 13-Sep-15.
  */
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;

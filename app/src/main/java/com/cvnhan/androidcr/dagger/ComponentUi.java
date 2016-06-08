@@ -6,6 +6,7 @@ package com.cvnhan.androidcr.dagger;
 import com.cvnhan.androidcr.dagger.module.ModuleActivity;
 import com.cvnhan.androidcr.ui.activity.MainActivity;
 import com.cvnhan.androidcr.ui.fragment.HomeFragment;
+import com.cvnhan.androidcr.ui.fragment.SecondFragment;
 
 import dagger.Component;
 
@@ -15,4 +16,6 @@ public interface ComponentUi extends IActivityComponent {
     void inject(MainActivity mainActivity);
 
     void inject(HomeFragment homeFragment);
+
+    void inject(SecondFragment secondFragment);
 }

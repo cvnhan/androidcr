@@ -1,50 +1,38 @@
 package com.cvnhan.androidcr.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.location.LocationManager;
+import android.os.Bundle;
+import android.util.Log;
 
-import com.cvnhan.androidcr.MyApplication;
 import com.cvnhan.androidcr.R;
-import com.cvnhan.androidcr.dagger.module.ModuleActivity;
-import com.cvnhan.androidcr.dagger.ComponentUi;
-import com.cvnhan.androidcr.dagger.DaggerComponentUi;
 import com.cvnhan.androidcr.mvp.model.local.MLRadio;
 import com.cvnhan.androidcr.mvp.presenter.PRadio;
 import com.cvnhan.androidcr.mvp.view.VRadio;
+import com.cvnhan.androidcr.ui.fragment.FragmentNav;
+import com.cvnhan.androidcr.ui.fragment.HomeFragment;
+import com.cvnhan.androidcr.ui.fragment.SecondFragment;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 /**
  * Created by NhanCao on 13-Sep-15.
  */
 public class MainActivity extends ActivityBase implements VRadio {
-    @Inject
-    LocationManager locationManager;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
     @Inject
     PRadio flow;
-    private ComponentUi uiComponent;
-
-    public ComponentUi component() {
-        if (uiComponent == null) {
-            uiComponent = DaggerComponentUi.builder()
-                    .componentSingleton(((MyApplication) getApplication()).component())
-                    .moduleActivity(new ModuleActivity(this))
-                    .build();
-        }
-        return uiComponent;
-    }
+    FragmentNav nav;
 
     @Override
-    protected void setupViews() {
+    protected void onCreated(Bundle savedInstanceState) {
+        nav = FragmentNav.create(this, R.id.content);
+        if (savedInstanceState == null) {
+            nav.showScreen(new HomeFragment(), true);
+        }
         flow.onPStart(this);
-        Timber.tag("LifeCycles");
-        Timber.d("Activity Created");
-
     }
 
     @Override
@@ -58,12 +46,19 @@ public class MainActivity extends ActivityBase implements VRadio {
     }
 
     @Override
-    protected void onReceive(Context context, Intent intent) {
+    public void render(ArrayList<MLRadio> songList) {
 
     }
 
-    @Override
-    public void render(ArrayList<MLRadio> songList) {
+    @Subscribe
+    public void getNotify(String s) {
+        Log.e(TAG, "getNotify: " + s);
+        nav.showScreen(new SecondFragment(), true);
+    }
 
+    @Override
+    public void onBackPressed() {
+        nav.navigateBack();
+//        super.onBackPressed();
     }
 }

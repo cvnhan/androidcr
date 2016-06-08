@@ -48,13 +48,12 @@ android {
         versionCode VERSION_CODE
         versionName VERSION_NAME
         multiDexEnabled = true
+        buildConfigField "boolean", "SERVICE_BASE", "false"
     }
 
     buildTypes {
         debug {
             debuggable true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
         release {
@@ -109,7 +108,6 @@ dependencies {
     compile dependency.rxAndroid
     compile dependency.rxJava
     compile dependency.picasso
-    compile dependency.timber
 
     compile 'com.android.support:support-v4:23.4.0'
 }

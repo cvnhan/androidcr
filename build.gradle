@@ -27,7 +27,6 @@ ext {
     androidSupportVersion = '23.4.0'
     daggerVersion = '2.2'
     butterKnifeVerion = '8.0.1'
-    timberVersion = '4.1.2'
     picassoVersion = '2.5.2'
     gsonVersion = '2.3.1'
     retrofitVersion = '2.0.0-beta1'
@@ -70,9 +69,6 @@ ext {
             butterknife          : "com.jakewharton:butterknife:${butterKnifeVerion}",
             butterknifeCompiler  : "com.jakewharton:butterknife-compiler:${butterKnifeVerion}",
 
-            // Logging
-            timber               : "com.jakewharton.timber:timber:${timberVersion}",
-
             // Image Loader
             picasso              : "com.squareup.picasso:picasso:${picassoVersion}",
 
@@ -86,7 +82,6 @@ ext {
             rxAndroid            : "io.reactivex:rxandroid:${rxAndroidVersion}",
             rxJava               : "io.reactivex:rxjava:${rxJavaVersion}",
             otto                 : "com.squareup:otto:${ottoVersion}",
-//            generatedAnnotation  : "org.glassfish:javax.annotation:${generatedAnnotationVersion}",
             generatedAnnotation  : "javax.annotation:jsr250-api:${generatedAnnotationVersion}",
 
     ]
