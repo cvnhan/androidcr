@@ -29,6 +29,13 @@ android {
                     output.outputFile.name.replace(output.outputFile.name, VERSION_CODE + "-" + VERSION_NAME + "-" + APK_NAME + ".apk"))
         }
     }
+
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
