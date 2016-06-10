@@ -33,7 +33,7 @@ public abstract class FragmentBase extends Fragment {
                 return contentView;
             }
         } else {
-            return inflater.inflate(layoutIdsmall file, container, false);
+            return inflater.inflate(layoutId, container, false);
         }
         return null;
     }
