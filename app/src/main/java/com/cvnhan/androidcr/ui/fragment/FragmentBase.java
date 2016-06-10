@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class FragmentBase extends Fragment {
 
     private Unbinder unbinder;
 
@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
                 return contentView;
             }
         } else {
-            return inflater.inflate(getContentViewId(), container, false);
+            return inflater.inflate(layoutIdsmall file, container, false);
         }
         return null;
     }

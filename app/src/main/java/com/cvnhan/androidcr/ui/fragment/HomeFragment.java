@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends FragmentBase {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private static final String ARG_PARAM = "param";
     @Inject

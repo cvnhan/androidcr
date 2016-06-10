@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class ActivityBase extends AppCompatActivity {
     @Inject
     LocationManager locationManager;
     NCMCActivityReceiverBase myReceiver;
@@ -97,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     class NCMCActivityReceiverBase extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            BaseActivity.this.onReceive(context, intent);
+            ActivityBase.this.onReceive(context, intent);
         }
     }
 
