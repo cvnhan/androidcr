@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
                 goMain();
                 // Wait for the splash timeout.
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }
 

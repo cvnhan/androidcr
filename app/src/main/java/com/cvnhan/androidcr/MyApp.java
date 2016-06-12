@@ -21,8 +21,8 @@ import io.realm.RealmConfiguration;
  * Created by NhanCao on 13-Sep-15.
  */
 public class MyApp extends MultiDexApplication {
-    @Inject
-    Bus applicationBus;
+
+    public static final Bus bus = new Bus();
     private ComponentSingleton component;
     private RealmConfiguration config0;
 
@@ -47,10 +47,6 @@ public class MyApp extends MultiDexApplication {
                 .schemaVersion(MLMigration.DBVERSION)
                 .migration(new MLMigration())
                 .build();
-    }
-
-    public Bus getApplicationBus() {
-        return applicationBus;
     }
 
     public ComponentSingleton component() {

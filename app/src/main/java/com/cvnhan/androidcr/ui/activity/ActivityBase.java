@@ -63,8 +63,6 @@ public abstract class ActivityBase extends AppCompatActivity {
             setContentView(layoutId);
         }
         ButterKnife.bind(this);
-        ((MyApp) getApplication()).getApplicationBus().register(this);
-
         onCreated(savedInstanceState);
     }
 
