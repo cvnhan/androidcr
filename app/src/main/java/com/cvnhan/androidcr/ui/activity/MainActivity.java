@@ -109,17 +109,17 @@ public class MainActivity extends ActivityBase {
     }
 
     @OnClick(R.id.vTab1)
-    public void vTabListsOnClick() {
+    public void vTab1OnClick() {
         updateTabBarView(0);
     }
 
     @OnClick(R.id.vTab2)
-    public void vTabPromosOnClick() {
+    public void vTab2OnClick() {
         updateTabBarView(1);
     }
 
     @OnClick(R.id.vTab3)
-    public void vTabUploadOnClick() {
+    public void vTab3OnClick() {
         updateTabBarView(2);
     }
 
