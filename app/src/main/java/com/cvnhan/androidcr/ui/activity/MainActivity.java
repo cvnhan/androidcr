@@ -1,7 +1,7 @@
 package com.cvnhan.androidcr.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +11,12 @@ import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.R;
 import com.cvnhan.androidcr.bus.TabIndex;
 import com.cvnhan.androidcr.ui.fragment.NFragmentPagerAdapter;
+import com.cvnhan.androidcr.ui.fragment.tab1.Tab1Fragment;
+import com.cvnhan.androidcr.ui.fragment.tab2.Tab2Fragment;
+import com.cvnhan.androidcr.ui.fragment.tab3.Tab3Fragment;
 import com.cvnhan.androidcr.ui.view.NSwipeViewPager;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,23 +53,19 @@ public class MainActivity extends ActivityBase {
 
     @Override
     protected void onCreated(Bundle savedInstanceState) {
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(Tab1Fragment.getInstance());
+        fragments.add(Tab2Fragment.getInstance());
+        fragments.add(Tab3Fragment.getInstance());
+
         viewPager.setPagingEnabled(false);
-        viewPager.setAdapter(adapterFragmentPager = new NFragmentPagerAdapter(getSupportFragmentManager(),
-                MainActivity.this));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
+        viewPager.setAdapter(adapterFragmentPager = new NFragmentPagerAdapter.Builder(getSupportFragmentManager()).setItems(fragments).build());
+        viewPager.addOnPageChangeListener(new NSwipeViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 updateTabBarView(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
         updateTabBarView(0);
