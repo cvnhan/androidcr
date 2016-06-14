@@ -16,8 +16,8 @@ apply plugin: 'realm-android'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 
-Integer VERSION_CODE = 2016060815
-String VERSION_NAME = "2.1"
+Integer VERSION_CODE = 2016061411
+String VERSION_NAME = "2.2"
 String APK_NAME = "AndroidMVP"
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
