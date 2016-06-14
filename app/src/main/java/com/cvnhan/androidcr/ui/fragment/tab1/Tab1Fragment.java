@@ -16,6 +16,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class Tab1Fragment extends FragmentBase {
     private static final String TAG = Tab1Fragment.class.getSimpleName();
@@ -46,6 +47,10 @@ public class Tab1Fragment extends FragmentBase {
         args.putString(ARG_PARAM, param);
         instance.setArguments(args);
         return instance;
+    }
+
+    public ViewFlow getViewFlow() {
+        return viewFlow;
     }
 
     @Override
@@ -97,5 +102,14 @@ public class Tab1Fragment extends FragmentBase {
         }
     }
 
+    @OnClick(R.id.btNavNext)
+    public void btNavNextOnClick() {
+        viewFlow.showScreen(Tab1NextScreen.create(getActivity(), null, this));
+    }
+
+    @OnClick(R.id.btNavPre)
+    public void btNavPreOnClick() {
+        viewFlow.goBack();
+    }
 
 }

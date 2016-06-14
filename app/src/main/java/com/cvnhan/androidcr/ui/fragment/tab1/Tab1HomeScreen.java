@@ -39,7 +39,7 @@ public class Tab1HomeScreen extends FrameLayout {
     protected
     @LayoutRes
     int getContentViewId() {
-        return R.layout.fragment_tab1_home;
+        return R.layout.fragment_tab1_home_screen;
     }
 
     protected void setupViews() {

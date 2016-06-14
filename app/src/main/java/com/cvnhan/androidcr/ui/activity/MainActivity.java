@@ -135,7 +135,11 @@ public class MainActivity extends ActivityBase {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (viewPager.getCurrentItem() == 0 && Tab1Fragment.getInstance().getViewFlow().goBack()) {
+
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

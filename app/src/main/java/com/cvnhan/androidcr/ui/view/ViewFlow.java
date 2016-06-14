@@ -50,9 +50,9 @@ public class ViewFlow {
         }
         View exitView = container.getChildAt(container.getChildCount() - 1);
         if (enterView != null) {
-            Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.slide_in_left);
+            Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.activity_open_translate);
             if (exitView != null) {
-                Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.slide_out_right);
+                Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.activity_close_scale);
                 exitView.startAnimation(exit);
                 exitView.postDelayed(() -> {
                     addView(enterView);
@@ -95,9 +95,9 @@ public class ViewFlow {
             View exitView = container.getChildAt(container.getChildCount() - 1);
 
             if (enterView != null) {
-                Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.slide_in_right);
+                Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.activity_open_scale);
                 if (exitView != null) {
-                    Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.slide_out_left);
+                    Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.activity_close_translate);
                     exitView.startAnimation(exit);
                     exitView.postDelayed(() -> {
                         addView(enterView);
