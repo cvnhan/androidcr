@@ -35,4 +35,12 @@ public class MainSession extends ViewSession {
     public boolean isTab1Fragment() {
         return getCurrentView() == Tab1Fragment.class;
     }
+
+    public boolean isTab2Fragment() {
+        return getCurrentView() == Tab2Fragment.class;
+    }
+
+    public boolean isTab3Fragment() {
+        return getCurrentView() == Tab3Fragment.class;
+    }
 }

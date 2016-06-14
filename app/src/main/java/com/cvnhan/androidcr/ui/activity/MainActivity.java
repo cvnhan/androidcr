@@ -1,11 +1,13 @@
 package com.cvnhan.androidcr.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cvnhan.androidcr.R;
 import com.cvnhan.androidcr.ui.fragment.NFragmentPagerAdapter;
@@ -102,7 +104,6 @@ public class MainActivity extends ActivityBase {
         }
         if (position < adapterFragmentPager.getCount())
             viewPager.setCurrentItem(position, true);
-//        MyApp.bus.post(TabIndex.getTabIndex(position));
     }
 
     @OnClick(R.id.vTab1)
@@ -130,12 +131,18 @@ public class MainActivity extends ActivityBase {
         component().inject(this);
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0 && Tab1Fragment.getInstance().getViewFlow().goBack()) {
-
+        if (MainSession.getInstance().isTab1Fragment() && Tab1Fragment.getInstance().getViewFlow().goBack()) {
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
         }
     }
 

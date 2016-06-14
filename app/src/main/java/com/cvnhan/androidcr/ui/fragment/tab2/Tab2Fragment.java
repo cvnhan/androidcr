@@ -7,13 +7,12 @@ import android.widget.TextView;
 
 import com.cvnhan.androidcr.MyApp;
 import com.cvnhan.androidcr.R;
-import com.cvnhan.androidcr.bus.TabIndex;
 import com.cvnhan.androidcr.ui.activity.MainActivity;
+import com.cvnhan.androidcr.ui.activity.MainSession;
 import com.cvnhan.androidcr.ui.fragment.FragmentBase;
 import com.cvnhan.androidcr.ui.view.ViewFlow;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.squareup.otto.Subscribe;
 
 import butterknife.BindView;
 
@@ -83,19 +82,17 @@ public class Tab2Fragment extends FragmentBase {
         super.onDetach();
     }
 
-
     @Override
     protected void onInjected() {
         super.onInjected();
         viewFlow = ViewFlow.create(container);
+        MainSession.getInstance().updateCurrentViewChangeListener(Tab2Fragment.class, currentView -> {
+            if (MainSession.getInstance().isTab2Fragment()) {
+                YoYo.with(Techniques.Flash).duration(700).playOn(vToolBarButtons);
+            }
+        });
     }
 
-    @Subscribe
-    public void tabIndexListener(TabIndex index) {
-        if (index == TabIndex.TAB2) {
-            YoYo.with(Techniques.BounceInDown).duration(700).playOn(vToolBarButtons);
-        }
-    }
 
 
 }
