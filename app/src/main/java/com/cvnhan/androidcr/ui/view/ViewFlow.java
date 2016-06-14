@@ -15,127 +15,99 @@ import java.util.Stack;
 public class ViewFlow {
     private static final String TAG = ViewFlow.class.getSimpleName();
     private final FrameLayout container;
-    private Stack<View> backStack;
+    private Stack<View> viewStack;
 
     private ViewFlow(FrameLayout container) {
         this.container = container;
-        this.backStack = new Stack();
+        this.viewStack = new Stack<>();
+        this.syncLayout2Stack();
     }
 
     public static ViewFlow create(FrameLayout container) {
         return new ViewFlow(container);
     }
 
-    public void clearStack() {
-        if (this.backStack != null) {
-            this.backStack.clear();
+    /**
+     * Add view element of view container to stack
+     */
+    private void syncLayout2Stack() {
+        if (this.viewStack == null) this.viewStack = new Stack<>();
+        for (int i = 0; i < container.getChildCount(); i++) {
+            viewStack.push(container.getChildAt(i));
+            if (container.getChildCount() == 1) break;
+            container.removeViewAt(i);
+            i--;
         }
     }
 
-    public void showScreen(View enterView, boolean addToBackStack) {
-        View exitView = container.getChildAt(0);
-        if (addToBackStack) {
-            if (exitView != null) {
-                this.backStack.push(exitView);
-            }
+    public void showScreen(View enterView) {
+        this.showScreen(enterView, true);
+    }
+
+    public void showScreen(View enterView, boolean saveThisSate) {
+        if (saveThisSate) {
+            this.viewStack.push(enterView);
         }
-
-        if (!backStack.isEmpty()) {
+        View exitView = container.getChildAt(container.getChildCount() - 1);
+        if (enterView != null) {
             Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.slide_in_left);
-            enter.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
             if (exitView != null) {
                 Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.slide_out_right);
-                exit.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
                 exitView.startAnimation(exit);
-                exitView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        addView(enterView);
-                        enterView.startAnimation(enter);
-                    }
+                exitView.postDelayed(() -> {
+                    addView(enterView);
+                    enterView.startAnimation(enter);
                 }, exit.getDuration() / 2);
+            } else {
+                addView(enterView);
+                enterView.startAnimation(enter);
             }
-
         }
     }
 
-    public void pop() {
-        this.backStack.pop();
+    public void emptyFlow() {
+        if (this.viewStack != null) {
+            this.viewStack.clear();
+            this.container.removeAllViews();
+        }
     }
 
-    public boolean navigateBack() {
-        if (this.backStack != null && !this.backStack.isEmpty()) {
-            View enterView = (View) this.backStack.pop();
-            View exitView = container.getChildAt(0);
-            Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.slide_in_right);
-            enter.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
+    /**
+     * Function will check ability can go back or not
+     * Screen: 1 -> 2 -> 3 -> 4. When current screen is 1 that mean can not go back => viewStack.size() == 1
+     *
+     * @return true: can go back
+     * false: can not
+     */
+    public boolean canGoBack() {
+        return this.viewStack != null && this.viewStack.size() > 1;
+    }
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                }
+    public View getViewTop() {
+        if (viewStack.isEmpty()) return null;
+        return this.viewStack.peek();
+    }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
+    public boolean goBack() {
+        if (canGoBack()) {
+            this.viewStack.pop();
+            View enterView = this.getViewTop();
+            View exitView = container.getChildAt(container.getChildCount() - 1);
 
-                }
-            });
-
-            if (exitView != null) {
-                Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.slide_out_left);
-                exit.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                exitView.startAnimation(exit);
-                exitView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+            if (enterView != null) {
+                Animation enter = AnimationUtils.loadAnimation(enterView.getContext(), R.anim.slide_in_right);
+                if (exitView != null) {
+                    Animation exit = AnimationUtils.loadAnimation(exitView.getContext(), R.anim.slide_out_left);
+                    exitView.startAnimation(exit);
+                    exitView.postDelayed(() -> {
                         addView(enterView);
                         enterView.startAnimation(enter);
-                    }
-                }, exit.getDuration() / 2);
+                    }, exit.getDuration() / 2);
+                } else {
+                    addView(enterView);
+                    enterView.startAnimation(enter);
+                }
             }
-
             return true;
         } else {
             return false;
@@ -143,7 +115,9 @@ public class ViewFlow {
     }
 
     private void addView(View view) {
-        container.removeAllViews();
+        if (container.getChildCount() > 0) {
+            container.removeViewAt(container.getChildCount() - 1);
+        }
         container.addView(view);
     }
 
