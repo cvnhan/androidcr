@@ -11,6 +11,7 @@ import java.util.Stack;
 
 /**
  * Created by nhancao on 6/10/16.
+ * Handle flow screen by Stack, every view will store in stack with ShowScreen method (flag saveSate must be true).
  */
 public class ViewFlow {
     private static final String TAG = ViewFlow.class.getSimpleName();
