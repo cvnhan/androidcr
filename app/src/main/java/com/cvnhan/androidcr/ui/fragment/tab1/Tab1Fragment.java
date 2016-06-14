@@ -101,12 +101,14 @@ public class Tab1Fragment extends FragmentBase {
 
     @OnClick(R.id.btNavNext)
     public void btNavNextOnClick() {
-        viewFlow.showScreen(Tab1NextScreen.create(getActivity(), null, this));
+        if (Tab1Session.getInstance().isHomeScreen()) {
+            Tab1Session.showScreen(viewFlow, Tab1NextScreen.create(getActivity(), null, this));
+        }
     }
 
     @OnClick(R.id.btNavPre)
     public void btNavPreOnClick() {
-        viewFlow.goBack();
+        Tab1Session.goBack(viewFlow);
     }
 
 }
