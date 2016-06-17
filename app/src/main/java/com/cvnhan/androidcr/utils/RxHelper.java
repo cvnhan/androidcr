@@ -2,6 +2,7 @@ package com.cvnhan.androidcr.utils;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -38,6 +39,12 @@ public class RxHelper {
     public static void onCompleted(Subscriber<?> subscriber) {
         if (!subscriber.isUnsubscribed()) {
             subscriber.onCompleted();
+        }
+    }
+
+    public static void onStop(Subscription subscription) {
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
         }
     }
 }

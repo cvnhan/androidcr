@@ -11,6 +11,8 @@ import com.cvnhan.androidcr.ui.activity.MainActivity;
 import com.cvnhan.androidcr.ui.activity.MainSession;
 import com.cvnhan.androidcr.ui.fragment.FragmentBase;
 import com.cvnhan.androidcr.ui.view.ViewFlow;
+import com.cvnhan.androidcr.utils.AppConfig;
+import com.cvnhan.androidcr.utils.Utils;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -100,15 +102,21 @@ public class Tab1Fragment extends FragmentBase {
     }
 
     @OnClick(R.id.btNavNext)
-    public void btNavNextOnClick() {
-        if (Tab1Session.getInstance().isHomeScreen()) {
-            Tab1Session.showScreen(viewFlow, Tab1NextScreen.create(getActivity(), null, this));
-        }
+    public void btNavNextOnClick(View view) {
+        Utils.hideKeyboard(view);
+        view.postDelayed(() -> {
+            if (Tab1Session.getInstance().isHomeScreen()) {
+                Tab1Session.showScreen(viewFlow, Tab1NextScreen.create(getActivity(), null, this));
+            }
+        }, AppConfig.delayPressed);
     }
 
     @OnClick(R.id.btNavPre)
-    public void btNavPreOnClick() {
-        Tab1Session.goBack(viewFlow);
+    public void btNavPreOnClick(View view) {
+        Utils.hideKeyboard(view);
+        view.postDelayed(() -> {
+            Tab1Session.goBack(viewFlow);
+        }, AppConfig.delayPressed);
     }
 
 }
