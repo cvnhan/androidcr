@@ -12,6 +12,8 @@ import com.cvnhan.androidcr.ui.fragment.tab2.Tab2Fragment;
 import com.cvnhan.androidcr.ui.fragment.tab2.Tab2HomeScreen;
 import com.cvnhan.androidcr.ui.fragment.tab3.Tab3Fragment;
 import com.cvnhan.androidcr.ui.fragment.tab3.Tab3HomeScreen;
+import com.cvnhan.androidcr.ui.view.template.RvScreenTemplate;
+import com.cvnhan.androidcr.ui.view.template.ScreenTemplate;
 
 import dagger.Component;
 
@@ -19,6 +21,10 @@ import dagger.Component;
 @Component(modules = ModuleActivity.class, dependencies = ComponentSingleton.class)
 public interface ComponentUi extends IActivityComponent {
     void inject(MainActivity mainActivity);
+
+    void inject(ScreenTemplate screenTemplate);
+
+    void inject(RvScreenTemplate rvScreenTemplate);
 
     void inject(Tab1Fragment tab1Fragment);
 
