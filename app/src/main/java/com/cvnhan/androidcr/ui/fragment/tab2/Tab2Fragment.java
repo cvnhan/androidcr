@@ -18,8 +18,8 @@ import butterknife.BindView;
 
 public class Tab2Fragment extends FragmentBase {
     private static final String TAG = Tab2Fragment.class.getSimpleName();
-    private static Tab2Fragment instance = new Tab2Fragment();
     private static final String ARG_PARAM = "param";
+    private static Tab2Fragment instance = new Tab2Fragment();
     @BindView(R.id.container)
     FrameLayout container;
     @BindView(R.id.vToolBar)
@@ -92,7 +92,6 @@ public class Tab2Fragment extends FragmentBase {
             }
         });
     }
-
 
 
 }

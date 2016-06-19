@@ -15,27 +15,21 @@ import com.cvnhan.androidcr.R;
  */
 public class SplitView extends LinearLayout implements View.OnTouchListener {
 
+    final static private int MAXIMIZED_VIEW_TOLERANCE_DIP = 30;
+    final static private int TAP_DRIFT_TOLERANCE = 3;
+    final static private int SINGLE_TAP_MAX_TIME = 175;
     private int mHandleId;
     private View mHandle;
-
     private int mPrimaryContentId;
     private View mPrimaryContent;
-
     private int mSecondaryContentId;
     private View mSecondaryContent;
-
     private int mLastPrimaryContentSize;
-
     private boolean mDragging;
     private long mDraggingStarted;
     private float mDragStartX;
     private float mDragStartY;
-
     private float mPointerOffset;
-
-    final static private int MAXIMIZED_VIEW_TOLERANCE_DIP = 30;
-    final static private int TAP_DRIFT_TOLERANCE = 3;
-    final static private int SINGLE_TAP_MAX_TIME = 175;
 
     public SplitView(Context context, AttributeSet attrs) {
         super(context, attrs);

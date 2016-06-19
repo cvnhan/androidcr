@@ -15,12 +15,22 @@ public class Tab1Session extends ViewSession {
     private static final String TAG = Tab1Session.class.getSimpleName();
     private static Tab1Session instance = new Tab1Session();
 
+    private Tab1Session() {
+        super();
+    }
+
     public static Tab1Session getInstance() {
         return instance;
     }
 
-    private Tab1Session() {
-        super();
+    public static void showScreen(ViewFlow viewFlow, View screen) {
+        viewFlow.showScreen(screen);
+        Tab1Session.getInstance().setCurrentView(screen.getClass());
+    }
+
+    public static void goBack(ViewFlow viewFlow) {
+        viewFlow.goBack();
+        Tab1Session.getInstance().setCurrentView(viewFlow.getViewTop().getClass());
     }
 
     @Override
@@ -33,16 +43,6 @@ public class Tab1Session extends ViewSession {
 
     public boolean isHomeScreen() {
         return getCurrentView() == Tab1HomeScreen.class;
-    }
-
-    public static void showScreen(ViewFlow viewFlow, View screen) {
-        viewFlow.showScreen(screen);
-        Tab1Session.getInstance().setCurrentView(screen.getClass());
-    }
-
-    public static void goBack(ViewFlow viewFlow) {
-        viewFlow.goBack();
-        Tab1Session.getInstance().setCurrentView(viewFlow.getViewTop().getClass());
     }
 
 }

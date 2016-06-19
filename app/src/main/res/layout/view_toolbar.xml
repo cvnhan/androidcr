@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
-    app:titleTextColor="@android:color/white"
+    app:contentInsetEnd="0dp"
     app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp"
     app:contentInsetRight="0dp"
-    app:contentInsetEnd="0dp">
+    app:contentInsetStart="0dp"
+    app:titleTextColor="@android:color/white">
 
     <LinearLayout
         android:id="@+id/vToolBarButtons"

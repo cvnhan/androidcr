@@ -23,6 +23,13 @@ public class RvContentAdapter extends RecyclerView.Adapter<RvContentAdapter.Simp
     private final Context context;
     private List<String> data;
 
+    public RvContentAdapter(Context context, String[] data) {
+        this.context = context;
+        if (data != null)
+            this.data = new ArrayList<String>(Arrays.asList(data));
+        else this.data = new ArrayList<String>();
+    }
+
     public void add(String s, int position) {
         position = position == -1 ? getItemCount() : position;
         data.add(position, s);
@@ -34,22 +41,6 @@ public class RvContentAdapter extends RecyclerView.Adapter<RvContentAdapter.Simp
             data.remove(position);
             notifyItemRemoved(position);
         }
-    }
-
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
-
-        public SimpleViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.section_text);
-        }
-    }
-
-    public RvContentAdapter(Context context, String[] data) {
-        this.context = context;
-        if (data != null)
-            this.data = new ArrayList<String>(Arrays.asList(data));
-        else this.data = new ArrayList<String>();
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,5 +62,14 @@ public class RvContentAdapter extends RecyclerView.Adapter<RvContentAdapter.Simp
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+        public final TextView title;
+
+        public SimpleViewHolder(View view) {
+            super(view);
+            title = (TextView) view.findViewById(R.id.section_text);
+        }
     }
 }

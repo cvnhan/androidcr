@@ -21,14 +21,17 @@ public interface ComponentUi extends IActivityComponent {
     void inject(MainActivity mainActivity);
 
     void inject(Tab1Fragment tab1Fragment);
+
     void inject(Tab1HomeScreen tab1HomeScreen);
 
     void inject(Tab1NextScreen tab1NextScreen);
 
     void inject(Tab2Fragment tab2Fragment);
+
     void inject(Tab2HomeScreen tab2HomeScreen);
 
     void inject(Tab3Fragment tab3Fragment);
+
     void inject(Tab3HomeScreen tab3HomeScreen);
 
 }

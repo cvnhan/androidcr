@@ -1,4 +1,3 @@
-
 package com.cvnhan.androidcr.ui.activity;
 
 import android.app.Activity;

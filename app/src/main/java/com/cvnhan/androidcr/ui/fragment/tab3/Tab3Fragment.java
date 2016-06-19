@@ -10,7 +10,6 @@ import com.cvnhan.androidcr.R;
 import com.cvnhan.androidcr.ui.activity.MainActivity;
 import com.cvnhan.androidcr.ui.activity.MainSession;
 import com.cvnhan.androidcr.ui.fragment.FragmentBase;
-import com.cvnhan.androidcr.ui.fragment.tab1.Tab1Fragment;
 import com.cvnhan.androidcr.ui.view.ViewFlow;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -19,8 +18,8 @@ import butterknife.BindView;
 
 public class Tab3Fragment extends FragmentBase {
     private static final String TAG = Tab3Fragment.class.getSimpleName();
-    private static Tab3Fragment instance = new Tab3Fragment();
     private static final String ARG_PARAM = "param";
+    private static Tab3Fragment instance = new Tab3Fragment();
     @BindView(R.id.container)
     FrameLayout container;
     @BindView(R.id.vToolBar)

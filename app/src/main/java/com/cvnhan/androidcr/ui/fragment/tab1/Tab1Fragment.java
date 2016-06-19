@@ -21,8 +21,8 @@ import butterknife.OnClick;
 
 public class Tab1Fragment extends FragmentBase {
     private static final String TAG = Tab1Fragment.class.getSimpleName();
-    private static Tab1Fragment instance = new Tab1Fragment();
     private static final String ARG_PARAM = "param";
+    private static Tab1Fragment instance = new Tab1Fragment();
     @BindView(R.id.container)
     FrameLayout container;
     @BindView(R.id.vToolBar)

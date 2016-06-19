@@ -53,6 +53,7 @@ public class MainActivity extends ActivityBase {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     NFragmentPagerAdapter adapterFragmentPager;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreated(Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class MainActivity extends ActivityBase {
         updateTabBarView(0);
         testSession();
     }
-
 
     public void updateTabBarView(int position) {
         vTab1.setEnabled(true);
@@ -135,8 +135,6 @@ public class MainActivity extends ActivityBase {
     protected void injectDependencies() {
         component().inject(this);
     }
-
-    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {

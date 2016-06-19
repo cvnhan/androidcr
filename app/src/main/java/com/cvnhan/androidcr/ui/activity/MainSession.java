@@ -15,12 +15,12 @@ public class MainSession extends ViewSession {
     private static final String TAG = MainSession.class.getSimpleName();
     private static MainSession instance = new MainSession();
 
-    public static MainSession getInstance() {
-        return instance;
-    }
-
     private MainSession() {
         super();
+    }
+
+    public static MainSession getInstance() {
+        return instance;
     }
 
     @Override

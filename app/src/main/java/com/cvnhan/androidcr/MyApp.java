@@ -12,8 +12,6 @@ import com.squareup.otto.Bus;
 
 import java.io.File;
 
-import javax.inject.Inject;
-
 import io.realm.BuildConfig;
 import io.realm.RealmConfiguration;
 
