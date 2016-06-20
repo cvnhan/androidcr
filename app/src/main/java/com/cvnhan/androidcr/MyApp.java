@@ -13,6 +13,7 @@ import com.squareup.otto.Bus;
 import java.io.File;
 
 import io.realm.BuildConfig;
+import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
@@ -45,6 +46,7 @@ public class MyApp extends MultiDexApplication {
                 .schemaVersion(MLMigration.DBVERSION)
                 .migration(new MLMigration())
                 .build();
+        Realm.setDefaultConfiguration(config0);
     }
 
     public ComponentSingleton component() {

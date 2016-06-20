@@ -62,7 +62,8 @@ public class MRadio {
         return Observable.defer(() -> Observable.create(subscriber -> {
             Realm realm = null;
             try {
-                realm = Realm.getInstance(((MyApp) application).getConfig0());
+//                realm = Realm.getInstance(((MyApp) application).getConfig0());
+                realm = Realm.getDefaultInstance();
                 final RealmResults<MLRadio> dbRadios = realm.where(MLRadio.class).findAll();
                 ArrayList<MLRadio> radioArrayList = new ArrayList<>();
                 for (MLRadio dbRadio : dbRadios) {
