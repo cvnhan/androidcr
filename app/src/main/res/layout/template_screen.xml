@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tvColorName"
+    <android.support.v7.widget.SearchView
+        android:id="@+id/etInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Template screen"
-        android:textSize="22sp" />
+        android:layout_height="60dp"
+        android:focusable="true"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search">
+
+    </android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/vListsItems"

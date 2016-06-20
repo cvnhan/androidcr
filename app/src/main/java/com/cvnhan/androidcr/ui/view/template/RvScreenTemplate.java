@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,6 +24,8 @@ import butterknife.ButterKnife;
  */
 public class RvScreenTemplate extends FrameLayout {
 
+    @BindView(R.id.etInput)
+    SearchView etInput;
     @BindView(R.id.vListsItems)
     RecyclerView vListsItems;
     RvCallback rvCallback = new RvCallBackBase();
@@ -70,6 +73,20 @@ public class RvScreenTemplate extends FrameLayout {
         RvAdapterTemplate adapter = new RvAdapterTemplate();
         vListsItems.setAdapter(adapter);
         adapter.setListsItems(new ArrayList<>());
+        //etInput.onActionViewExpanded();
+        etInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.setSearchText(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.setSearchText(newText);
+                return true;
+            }
+        });
     }
 
     @Override
