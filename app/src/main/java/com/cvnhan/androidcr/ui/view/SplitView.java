@@ -4,17 +4,19 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.cvnhan.androidcr.R;
+import com.cvnhan.androidcr.utils.ResizeAnimation;
 
 /**
  * Created by nhancao on 6/17/16.
  */
 public class SplitView extends LinearLayout implements View.OnTouchListener {
-
     final static private int MAXIMIZED_VIEW_TOLERANCE_DIP = 30;
     final static private int TAP_DRIFT_TOLERANCE = 3;
     final static private int SINGLE_TAP_MAX_TIME = 175;
@@ -30,10 +32,11 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
     private float mDragStartX;
     private float mDragStartY;
     private float mPointerOffset;
+    private GestureDetector gestureDetector;
 
     public SplitView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        gestureDetector = new GestureDetector(new GestureListener(this));
         TypedArray viewAttrs = context.obtainStyledAttributes(attrs, R.styleable.SplitView);
 
         RuntimeException e = null;
@@ -96,6 +99,9 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent me) {
         // Only capture drag events if we start
         if (view != mHandle) {
+            return false;
+        }
+        if (gestureDetector.onTouchEvent(me)) {
             return false;
         }
         //Log.v("foo", "at "+SystemClock.elapsedRealtime()+" got touch event " + me);
@@ -161,16 +167,16 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
     private boolean setPrimaryContentHeight(int newHeight) {
         // the new primary content height should not be less than 0 to make the
         // handler always visible
-        newHeight = Math.max(0, newHeight);
+        newHeight = Math.max(1, newHeight);
         // the new primary content height should not be more than the SplitView
         // height minus handler height to make the handler always visible
         newHeight = Math.min(newHeight, getMeasuredHeight() - mHandle.getMeasuredHeight());
-        LayoutParams params = (LayoutParams) mPrimaryContent
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mPrimaryContent
                 .getLayoutParams();
         if (mSecondaryContent.getMeasuredHeight() < 1 && newHeight > params.height) {
             return false;
         }
-        if (newHeight >= 0) {
+        if (newHeight > 0) {
             params.height = newHeight;
             // set the primary content parameter to do not stretch anymore and
             // use the height specified in the layout params
@@ -179,24 +185,23 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
         unMinimizeSecondaryContent();
         mPrimaryContent.setLayoutParams(params);
         return true;
-
     }
 
     private boolean setPrimaryContentWidth(int newWidth) {
         // the new primary content width should not be less than 0 to make the
         // handler always visible
-        newWidth = Math.max(0, newWidth);
+        newWidth = Math.max(1, newWidth);
         // the new primary content width should not be more than the SplitView
         // width minus handler width to make the handler always visible
         newWidth = Math.min(newWidth, getMeasuredWidth() - mHandle.getMeasuredWidth());
-        LayoutParams params = (LayoutParams) mPrimaryContent
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mPrimaryContent
                 .getLayoutParams();
 
 
         if (mSecondaryContent.getMeasuredWidth() < 1 && newWidth > params.width) {
             return false;
         }
-        if (newWidth >= 0) {
+        if (newWidth > 0) {
             params.width = newWidth;
             // set the primary content parameter to do not stretch anymore and
             // use the width specified in the layout params
@@ -239,9 +244,9 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
     private void maximizeContentPane(View toMaximize, View toUnMaximize) {
         mLastPrimaryContentSize = getPrimaryContentSize();
 
-        LayoutParams params = (LayoutParams) toUnMaximize
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) toUnMaximize
                 .getLayoutParams();
-        LayoutParams secondaryParams = (LayoutParams) toMaximize
+        LinearLayout.LayoutParams secondaryParams = (LinearLayout.LayoutParams) toMaximize
                 .getLayoutParams();
         // set the primary content parameter to do not stretch anymore and use
         // the height/width specified in the layout params
@@ -255,12 +260,10 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
         }
         toUnMaximize.setLayoutParams(params);
         toMaximize.setLayoutParams(secondaryParams);
-
-
     }
 
     private void unMinimizeSecondaryContent() {
-        LayoutParams secondaryParams = (LayoutParams) mSecondaryContent
+        LinearLayout.LayoutParams secondaryParams = (LinearLayout.LayoutParams) mSecondaryContent
                 .getLayoutParams();
         // set the secondary content parameter to use all the available space
         secondaryParams.weight = 1;
@@ -268,4 +271,49 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
 
     }
 
-};
+    private void onFling(int dir) {
+        if (dir == GestureListener.SWIPE_UP) {
+            ResizeAnimation resizeAnimation = new ResizeAnimation(mPrimaryContent, null, 1);
+            resizeAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+            resizeAnimation.setDuration(300);
+            mPrimaryContent.startAnimation(resizeAnimation);
+        } else {
+            ResizeAnimation resizeAnimation = new ResizeAnimation(mPrimaryContent, null, getHeight() - mHandle.getHeight());
+            resizeAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+            resizeAnimation.setDuration(300);
+            mPrimaryContent.startAnimation(resizeAnimation);
+        }
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        public static final int SWIPE_UP = 0;
+        public static final int SWIPE_DOWN = 1;
+        SplitView splitView;
+
+        public GestureListener(SplitView splitView) {
+            this.splitView = splitView;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1 == null || e2 == null) {
+                return false;
+            }
+            final float distanceTimeFactor = 0.4f;
+            final float totalDx = (distanceTimeFactor * velocityX / 2);
+            final float totalDy = (distanceTimeFactor * velocityY / 2);
+
+
+            if (e1.getRawY() > e2.getRawY()) {
+                //swipe UP
+                splitView.onFling(SWIPE_UP);
+            } else {
+                splitView.onFling(SWIPE_DOWN);
+            }
+
+            return true;
+        }
+    }
+
+}
