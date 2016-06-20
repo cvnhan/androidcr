@@ -74,7 +74,7 @@ public class Utils {
     public static boolean isContainText(String search, String originalText) {
         if (search != null && !search.equalsIgnoreCase("")) {
             String normalizedText = Normalizer.normalize(originalText, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
-            int start = normalizedText.indexOf(search);
+            int start = normalizedText.indexOf(search.toLowerCase());
             if (start < 0) {
                 return false;
             } else {
