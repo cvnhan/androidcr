@@ -12,8 +12,10 @@ import android.widget.Toast;
 import com.cvnhan.androidcr.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +62,30 @@ public class RvSessionAdapterTemplate extends RecyclerView.Adapter<RecyclerView.
         });
     }
 
+
+    public void setListsItems(List<String> listItem) {
+        this.contentAdapter.setListItem(listItem);
+        setSections(sessionGenerator());
+    }
+
+    private List<Section> sessionGenerator() {
+        List<Section> sections =
+                new ArrayList<>();
+        Map<String, Boolean> sessionKey = new HashMap<>();
+        for (int i = 0; i < this.contentAdapter.getItemCount(); i++) {
+            String item = this.contentAdapter.getListItem().get(i);
+            String[] s = item.split(" \\[-\\] ");
+            if (s.length > 0) {
+                if (!sessionKey.containsKey(s[s.length - 1])) {
+                    sessionKey.put(s[s.length - 1], true);
+                    sections.add(new Section(i, s[s.length - 1]));
+                }
+            }
+        }
+        return sections;
+    }
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int typeView) {
         if (typeView == SECTION_TYPE) {
@@ -87,14 +113,11 @@ public class RvSessionAdapterTemplate extends RecyclerView.Adapter<RecyclerView.
                 : contentAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
     }
 
-    public void setSections(Section[] sections) {
+    public void setSections(List<Section> sections) {
         this.sections.clear();
-
-        Arrays.sort(sections, (o, o1) -> (o.firstPosition == o1.firstPosition)
-                ? 0
-                : ((o.firstPosition < o1.firstPosition) ? -1 : 1));
-
-        int offset = 0; // offset positions for the headers we're adding
+        Collections.sort(sections, (lhs, rhs) -> (lhs.firstPosition == rhs.firstPosition) ? 0
+                : ((lhs.firstPosition < rhs.firstPosition) ? -1 : 1));
+        int offset = 0;
         for (Section section : sections) {
             section.sectionedPosition = section.firstPosition + offset;
             this.sections.append(section.sectionedPosition, section);
@@ -175,29 +198,22 @@ public class RvSessionAdapterTemplate extends RecyclerView.Adapter<RecyclerView.
     public static class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentViewHolder> {
 
         private final Context context;
-        private List<String> data;
-
+        private List<String> listItem;
 
         public ContentAdapter(Context context) {
-            this(context, new String[]{"1", "2", "3"});
-        }
-
-        public ContentAdapter(Context context, String[] data) {
             this.context = context;
-            if (data != null)
-                this.data = new ArrayList<>(Arrays.asList(data));
-            else this.data = new ArrayList<>();
+            this.listItem = new ArrayList<>();
         }
 
         public void add(String s, int position) {
             position = position == -1 ? getItemCount() : position;
-            data.add(position, s);
+            listItem.add(position, s);
             notifyItemInserted(position);
         }
 
         public void remove(int position) {
             if (position < getItemCount()) {
-                data.remove(position);
+                listItem.remove(position);
                 notifyItemRemoved(position);
             }
         }
@@ -209,13 +225,22 @@ public class RvSessionAdapterTemplate extends RecyclerView.Adapter<RecyclerView.
 
         @Override
         public void onBindViewHolder(ContentViewHolder holder, final int position) {
-            holder.tvContent.setText(data.get(position));
+            holder.tvContent.setText(listItem.get(position));
             holder.tvContent.setOnClickListener(view -> Toast.makeText(context, "Position =" + position, Toast.LENGTH_SHORT).show());
+        }
+
+        public List<String> getListItem() {
+            return listItem;
+        }
+
+        public void setListItem(List<String> listItem) {
+            this.listItem = listItem;
+            notifyDataSetChanged();
         }
 
         @Override
         public int getItemCount() {
-            return data.size();
+            return listItem.size();
         }
 
         public static class ContentViewHolder extends RecyclerView.ViewHolder {
