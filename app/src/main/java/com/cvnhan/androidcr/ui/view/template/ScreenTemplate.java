@@ -1,7 +1,6 @@
 package com.cvnhan.androidcr.ui.view.template;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,7 +19,7 @@ public class ScreenTemplate extends FrameLayout {
 
     RvCallback rvCallback = new RvCallBackBase();
 
-    private ScreenTemplate(Context context, Bundle bundle, RvCallback callback) {
+    private ScreenTemplate(Context context, Object bundle, RvCallback callback) {
         this(context, null, 0);
         if (callback != null)
             this.rvCallback = callback;
@@ -49,7 +48,7 @@ public class ScreenTemplate extends FrameLayout {
         return new ScreenTemplate(context, null, null);
     }
 
-    public static ScreenTemplate create(Context context, Bundle bundle, RvCallback callback) {
+    public static ScreenTemplate create(Context context, Object bundle, RvCallback callback) {
         return new ScreenTemplate(context, bundle, callback);
     }
 

@@ -1,7 +1,6 @@
 package com.cvnhan.androidcr.ui.view.template;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +29,7 @@ public class RvScreenTemplate extends FrameLayout {
     RecyclerView vListsItems;
     RvCallback rvCallback = new RvCallBackBase();
 
-    private RvScreenTemplate(Context context, Bundle bundle, RvCallback callback) {
+    private RvScreenTemplate(Context context, Object bundle, RvCallback callback) {
         this(context, null, 0);
         if (callback != null)
             this.rvCallback = callback;
@@ -51,7 +50,7 @@ public class RvScreenTemplate extends FrameLayout {
         return new RvScreenTemplate(context, null, null);
     }
 
-    public static RvScreenTemplate create(Context context, Bundle bundle, RvCallback callback) {
+    public static RvScreenTemplate create(Context context, Object bundle, RvCallback callback) {
         return new RvScreenTemplate(context, bundle, callback);
     }
 

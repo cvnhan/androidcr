@@ -41,6 +41,12 @@ public class ViewFlow {
         }
     }
 
+    public void replaceScreenTop(View enterView) {
+        this.viewStack.pop();
+        popView();
+        showScreen(enterView);
+    }
+
     public void showScreen(View enterView) {
         this.showScreen(enterView, true);
     }
@@ -112,6 +118,12 @@ public class ViewFlow {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void popView() {
+        if (container.getChildCount() > 0) {
+            container.removeViewAt(container.getChildCount() - 1);
         }
     }
 
