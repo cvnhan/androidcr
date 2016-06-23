@@ -13,6 +13,7 @@ import com.cvnhan.androidcr.ui.fragment.tab2.Tab2HomeScreen;
 import com.cvnhan.androidcr.ui.fragment.tab3.Tab3Fragment;
 import com.cvnhan.androidcr.ui.fragment.tab3.Tab3HomeScreen;
 import com.cvnhan.androidcr.ui.view.template.RvScreenTemplate;
+import com.cvnhan.androidcr.ui.view.template.RvStickyScreenTemplate;
 import com.cvnhan.androidcr.ui.view.template.ScreenTemplate;
 
 import dagger.Component;
@@ -25,6 +26,8 @@ public interface ComponentUi extends IActivityComponent {
     void inject(ScreenTemplate screenTemplate);
 
     void inject(RvScreenTemplate rvScreenTemplate);
+
+    void inject(RvStickyScreenTemplate rvStickyScreenTemplate);
 
     void inject(Tab1Fragment tab1Fragment);
 

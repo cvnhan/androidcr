@@ -6,16 +6,21 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.support.v7.app.AlertDialog;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
+import com.cvnhan.androidcr.R;
 import com.cvnhan.androidcr.background.ServiceBase;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.Normalizer;
 import java.util.Random;
 import java.util.UUID;
@@ -24,7 +29,7 @@ import java.util.UUID;
  * Created by NhanCao on 13-Sep-15.
  */
 public class Utils {
-
+    private static final String TAG = Utils.class.getSimpleName();
     /**
      * @param duration : 302000
      * @return 5:02
@@ -123,7 +128,6 @@ public class Utils {
         return UUID.randomUUID().toString();
     }
 
-
     /**
      * Get random color
      *
@@ -216,4 +220,91 @@ public class Utils {
         float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
+
+
+    public static <T> T newInstance(final String className, final Object... args)
+            throws ClassNotFoundException,
+            NoSuchMethodException,
+            InstantiationException,
+            IllegalAccessException,
+            IllegalArgumentException,
+            InvocationTargetException {
+        // Derive the parameter types from the parameters themselves.
+        Class[] types = new Class[args.length];
+        for (int i = 0; i < types.length; i++) {
+            types[i] = args[i].getClass();
+        }
+        return (T) Class.forName(className).getConstructor(types).newInstance(args);
+    }
+
+    public static String parseCategory(String input) {
+        String[] s = input.split(" \\[-\\] ");
+        if (s.length > 0) {
+            return s[s.length - 1];
+        }
+
+        return "";
+    }
+
+    public static String removeQuotationMarks(String input) {
+        return input.replaceAll("\"", "");
+    }
+
+    public static boolean isPalindrome(String input) {
+        String reverse = new StringBuffer(input).reverse().toString();
+        return reverse.equals(input);
+    }
+
+    public static boolean isShopRoot(String input) {
+        if (input == null) return false;
+        String[] s = input.split("-", 3);
+        return s[0].equals(s[1]);
+    }
+
+    public static String getShopRootName(String input) {
+        if (input == null) return "";
+        String[] s = input.split("-", 3);
+        return s[0];
+    }
+
+    public static boolean isChildShop(String parentShopId, String childShop) {
+        if (parentShopId == null || childShop == null) return false;
+        String[] p = parentShopId.split("-", 3);
+        String[] c = childShop.split("-", 3);
+        return !isShopRoot(childShop) && !childShop.equals(parentShopId) && c[0].equals(p[0]);
+    }
+
+    public static AlertDialog showSimpleDialog(Context context, String title, ICollections.DialogSimpleInterface callback) {
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_simple_edit_text, null, false);
+        final AlertDialog d = new AlertDialog.Builder(context)
+                .setView(view)
+                .setTitle(title)
+                .setPositiveButton(android.R.string.ok, null)
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+
+        d.setOnShowListener(dialog -> {
+            Button btOk = d.getButton(AlertDialog.BUTTON_POSITIVE);
+            Button btCancel = d.getButton(AlertDialog.BUTTON_NEGATIVE);
+            btOk.setOnClickListener(view1 -> callback.ok(dialog, view1, view));
+            btCancel.setOnClickListener(view1 -> callback.cancel(dialog, view1, view));
+        });
+        return d;
+    }
+
+    public static void onCLick(View view, ICollections.DoingListener listener) {
+        listener.doing(view);
+        if (view != null) {
+            view.setEnabled(false);
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (view != null) {
+                        view.setEnabled(true);
+                    }
+                }
+            }, AppConfig.delayPressed);
+        }
+    }
+
 }

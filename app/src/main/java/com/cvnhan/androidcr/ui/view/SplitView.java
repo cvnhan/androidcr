@@ -304,6 +304,7 @@ public class SplitView extends LinearLayout implements View.OnTouchListener {
             final float totalDx = (distanceTimeFactor * velocityX / 2);
             final float totalDy = (distanceTimeFactor * velocityY / 2);
 
+
             if (Math.abs(e1.getRawY() - e2.getRawY()) > splitView.mHandle.getHeight())
                 if (e1.getRawY() > e2.getRawY()) {
                     //swipe UP
