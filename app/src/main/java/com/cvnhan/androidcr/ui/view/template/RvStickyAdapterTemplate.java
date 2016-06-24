@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * Created by nhancao on 6/19/16.
  */
-public class RvStickyAdapterTemplate extends RecyclerView.Adapter<RvStickyAdapterTemplate.ListsHolder> implements Filterable, StickyHeaderAdapter<RvStickyAdapterTemplate.HeaderHolder> {
+public class RvStickyAdapterTemplate extends RecyclerView.Adapter<RvStickyAdapterTemplate.ContentViewHolder> implements Filterable, StickyHeaderAdapter<RvStickyAdapterTemplate.HeaderHolder> {
 
     private List<Object> listsItems;
     private List<Object> listFiltered;
@@ -96,15 +96,15 @@ public class RvStickyAdapterTemplate extends RecyclerView.Adapter<RvStickyAdapte
     }
 
     @Override
-    public RvStickyAdapterTemplate.ListsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RvStickyAdapterTemplate.ContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.template_view_rv_item, parent, false);
-        return new ListsHolder(view);
+        return new ContentViewHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(RvStickyAdapterTemplate.ListsHolder holder, int position) {
+    public void onBindViewHolder(RvStickyAdapterTemplate.ContentViewHolder holder, int position) {
         Object item = listFiltered.get(position);
         holder.tvName.setText(Utils.highlightText(searchText, (String) item));
         holder.vNav.setOnClickListener(v -> {
@@ -174,26 +174,26 @@ public class RvStickyAdapterTemplate extends RecyclerView.Adapter<RvStickyAdapte
         viewholder.tvHeader.setText("Header " + getHeaderId(position) + " " + listSection.get(position).getTitle());
     }
 
-    public static final class ListsHolder extends RecyclerView.ViewHolder {
+    public static final class ContentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.vNav)
         View vNav;
         @BindView(R.id.tvName)
         TextView tvName;
 
-        public ListsHolder(View itemView) {
+        public ContentViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
     static class HeaderHolder extends RecyclerView.ViewHolder {
-        public TextView tvHeader;
+        @BindView(R.id.tvHeader)
+        TextView tvHeader;
 
         public HeaderHolder(View itemView) {
             super(itemView);
-
-            tvHeader = (TextView) itemView.findViewById(R.id.tvHeader);
+            ButterKnife.bind(this, itemView);
         }
     }
 
