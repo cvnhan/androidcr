@@ -170,8 +170,8 @@ public class RvStickyAdapterTemplate extends RecyclerView.Adapter<RvStickyAdapte
     }
 
     @Override
-    public void onBindHeaderViewHolder(HeaderHolder viewholder, int position) {
-        viewholder.tvHeader.setText("Header " + getHeaderId(position) + " " + listSection.get(position).getTitle());
+    public void onBindHeaderViewHolder(HeaderHolder viewHolder, int position) {
+        viewHolder.tvHeader.setText("Header " + getHeaderId(position) + " " + listSection.get(position).getTitle());
     }
 
     public static final class ContentViewHolder extends RecyclerView.ViewHolder {
